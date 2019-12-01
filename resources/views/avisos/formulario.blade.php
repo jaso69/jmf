@@ -3,8 +3,8 @@
 use App\Proovedore;
 use App\Vecino;
 use App\Comunidade;
-      $com = Comunidade::get();
-      $pro = Proovedore::get();
+      $com = Comunidade::orderBy('calle')->get();
+      $pro = Proovedore::orderBy('profesion')->get();
       if(request('comu') != null){
         $vec = Vecino::where('comunidades_id', request('comu'))->get();
       } else{
@@ -21,19 +21,20 @@ use App\Comunidade;
                      @php Session::flash('edit','1'); @endphp
                     <button type="button" class="btn btn-outline-primary"><span class="oi oi-home">&nbsp Nueva comunidad</span></button>
                   </a>
+                  <a href="{{ route('vecinos.create') }}">
+                     @php Session::flash('edit','11'); @endphp
                     <button type="button" class="btn btn-outline-secondary ml-3"><span class="oi oi-person">&nbsp Nuevo Vecino</span></button>
+                  </a>
+                  <a href="{{ route('proovedores.create') }}">
+                     @php Session::flash('edit','111'); @endphp
                     <button type="button" class="btn btn-outline-success ml-3"><span class="oi oi-wrench">&nbsp Nuevo proovedor</span></button>
+                  </a>
                     </div>
                         <div class="form-group mb-3 mt-3">
                         <form method = "GET" action="{{ route('avisos.create') }}" class="mb-3">
                          @csrf
-                      <label id="pio" class="card-text mr-3 ml-3">Comunidad</label>
-                      @if(session()->has('edit'))
-                        @if(session()->get('edit1') == 2)
-                        <input class="form-control" type="text" placeholder="Readonly input here..." value="{{$com->last()->calle}} &nbsp {{$com->last()->numero}}" readonly>
 
-                        @endif
-                      @else
+                      <label id="pio" class="card-text mr-3 ml-3">Comunidad</label>
                       <select id="pio"  name="comu" class="form-control mr-3">
                         @forelse($com as $co)
                             <option value="{{$co['id']}}">{{$co['calle']}} &nbsp {{$co['numero']}}</option>
@@ -43,19 +44,21 @@ use App\Comunidade;
                           <button  class="btn btn-primary mt-3 btn-block">Seleccionar</button>
                         </form>
                       </div>
-                      @endif
+
                        <form class="bg_white shadow rounded" method="POST" action="{{ route('avisos.store') }}">
                       @csrf
-                          <div class="form-row">
+                       <div class="form-row">
                         <div class="form-group col-md-6">
+
                         <label for="inputState" class="card-text mt-3 mr-3 ml-3">Vecino</label>
                           <select id="inputState" class="form-control mr-3" name="vec">
                             <option selected value="null">Selecciona</option>
                             @forelse($vec as $veci)
-                            <option value="{{$veci['id']}}">{{$veci['nombre']}} &nbsp {{$veci['apellidos']}}</option>
+                          <option value="{{$veci['id']}}">{{$veci['nombre']}} &nbsp {{$veci['apellidos']}}</option>
                             @empty
                             @endforelse
                              </select>
+
                          </div>
                          <div class="form-group col-md-6">
                           <label for="inputState1" class="card-text mt-3 mr-3 ml-3">Proovedor</label>

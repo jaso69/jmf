@@ -5,6 +5,9 @@
                     <h5 class="card-title">Nuevo</h5>
                     <form class="bg_white shadow rounded" method="POST" action="{{ route('proovedores.store') }}">
                       @csrf
+                       @if(session()->has('edit'))
+                        <input type="hidden" name="edit" value="111">
+                        @endif
                       <div class="form-row ml-3 mr-3">
                         <div class="form-group col-md-4">
                          <label for="calles" class="card-text">Nombre o Razòn Social</label>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comunidade;
 use App\Vecino;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class VecinoController extends Controller
 {
@@ -73,6 +74,11 @@ class VecinoController extends Controller
                 $vecino->cargo = request('cargo');
             }
             $vecino->save();
+
+             if(request('edit') == '11'){
+            Session::flash('edit1','22');
+            return view('avisos.create');
+        }
 
         return redirect()->route('vecinos');
     }

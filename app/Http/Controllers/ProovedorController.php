@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Aviso;
 use App\Proovedore;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProovedorController extends Controller
 {
@@ -71,6 +72,11 @@ class ProovedorController extends Controller
             }
 
             $vecino->save();
+
+             if(request('edit') == '111'){
+            Session::flash('edit1','222');
+            return view('avisos.create');
+        }
 
         return redirect()->route('proovedores');
     }

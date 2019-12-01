@@ -122,7 +122,6 @@
   $(document).ready( function () {
     $('#usurs').DataTable();
 } );
-
 </script>
 </body>
 </html>
